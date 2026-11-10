@@ -1,0 +1,33 @@
+name: Testes automatizados do AutoCare
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    name: Executar testes de autenticacao
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obter codigo do projeto
+        uses: actions/checkout@v7
+
+      - name: Configurar Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias
+        run: python -m pip install -r requirements.txt
+
+      - name: Executar os testes T1 a T6
+        run: python -m pytest -q
